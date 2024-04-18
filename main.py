@@ -66,7 +66,7 @@ with col1:
 
 with col2:
    st.header("Learning Curve")
-   st.image("xxx.png")
+   st.image("learning_curve.png")
 
 # Predict Obesity
 def predict_obesity():
