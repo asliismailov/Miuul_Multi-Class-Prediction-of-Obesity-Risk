@@ -59,10 +59,10 @@ def home_page():
 
 #Görseller
 def graph_page():
-    col1, col2 = st.columns(2)
+    col1,col2 = st.columns()
 with col1:
    st.header("Features")
-   st.image("xxx.png")
+   st.image("features.jpeg")
 
 with col2:
    st.header("Learning Curve")
