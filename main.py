@@ -16,7 +16,6 @@ def display_about():
     ''')
 
     st.subheader('Team Members')
-
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -40,11 +39,7 @@ def display_about():
 # Homepage
 def home_page():
     st.title('Homepage')
-
-    # Display a world map of obesity rates (placeholder static image)
     st.image('Obesity_rate_(WHO,_2022).png', caption='World Obesity Map')
-
-    # Text describing obesity as the disease of the era
     st.write("""
     ## Obesity: The Disease of Our Era
 
@@ -57,23 +52,19 @@ def home_page():
     Communities and governments should develop and implement policies to facilitate access to healthy foods, promote physical activity, and enhance health education.
     """)
 
-#Görseller
+# Visuals Page
 def graph_page():
-    col1,col2 = st.columns()
-    
-with col1:
-   st.header("Features")
-   st.image("features.jpeg")
-
-with col2:
-   st.header("Learning Curve")
-   st.image("learning_curve.png")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.header("Features")
+        st.image("features.jpeg")
+    with col2:
+        st.header("Learning Curve")
+        st.image("learning_curve.png")
 
 # Predict Obesity
 def predict_obesity():
     st.title('Predict Obesity Status')
-
-    # Collect user input
     gender = st.selectbox('Your Gender', ['Male', 'Female'])
     age = st.number_input('Your Age', min_value=1, max_value=100, value=25)
     height = st.number_input('Your Height (cm)', min_value=50, max_value=250, value=170)
@@ -91,7 +82,6 @@ def predict_obesity():
     calc = st.selectbox('Alcohol consumption frequency?', ['Never', 'Sometimes', 'Frequently', 'Always'])
     mtrans = st.selectbox('Main mode of transportation?', ['Walking', 'Bicycle', 'Public Transportation', 'Car', 'Motorcycle'])
 
-    # Convert categorical data to numerical
     gender = 1 if gender == 'Male' else 0
     family_history = 1 if family_history == 'Yes' else 0
     favc = 1 if favc == 'Frequently' else 0
@@ -108,13 +98,9 @@ def predict_obesity():
     mtrans_mapping = {'Walking': 0, 'Bicycle': 1, 'Public Transportation': 2, 'Car': 3, 'Motorcycle': 4}
     mtrans = mtrans_mapping[mtrans]
 
-    # Construct the input vector including all variables
-    input_data = np.array(
-        [gender, age, height, weight, family_history, favc, fcvc, ncp, caec, smoke, ch2o, scc, faf, tue, calc, mtrans])
-
+    input_data = np.array([gender, age, height, weight, family_history, favc, fcvc, ncp, caec, smoke, ch2o, scc, faf, tue, calc, mtrans])
     if st.button('Predict'):
         prediction = model.predict(input_data.reshape(1, -1))
-        # Use a dictionary to explain the obesity status
         obesity_status = {
             0: 'Insufficient Weight',
             1: 'Normal Weight',
@@ -126,8 +112,6 @@ def predict_obesity():
         }
         predicted_status = obesity_status.get(prediction[0], "Unknown status")
         st.subheader(f'Predicted Obesity Status: {predicted_status}')
-
-        # Add visual and recommendation text
         advice_dict = {
             'Insufficient Weight': ("It is important to eat regularly and consume quality nutrients. Focus on increasing your calorie intake."),
             'Normal Weight': ("Continue your current healthy lifestyle and regular physical activities."),
@@ -140,12 +124,10 @@ def predict_obesity():
         advice = advice_dict[predicted_status]
         st.write(advice)
 
-# Other functions and Streamlit configuration
-
 # Configure the Streamlit app
 def main():
     st.sidebar.title('Navigation')
-    page = st.sidebar.radio('Select Page:', ['About Us', 'Homepage', 'Dynamic Graphs', 'Predict Obesity'])
+    page = st.sidebar.radio('Select Page:', ['About Us', 'Homepage', 'Görseller', 'Predict Obesity'])
 
     if page == 'About Us':
         display_about()
@@ -158,4 +140,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
