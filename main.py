@@ -60,6 +60,7 @@ def home_page():
 #Görseller
 def graph_page():
     col1,col2 = st.columns()
+    
 with col1:
    st.header("Features")
    st.image("features.jpeg")
